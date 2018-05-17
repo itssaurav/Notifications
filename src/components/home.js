@@ -34,6 +34,35 @@ class Home extends Component<Props> {
         }
         //this.handleAppStateChange=this.handleAppStateChange.bind(this);
      }
+    sendNotifications()
+    {
+        fetch('https://fcm.googleapis.com/fcm/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'key=AIzaSyCMalibRCQoRWNxPTBVnKHpMMPx4r1yoeM'
+            },
+            body: JSON.stringify({
+                "to":"dHlMwH3IXBg:APA91bGKCJcEeDIOs3rPt6F1bvQrGzQyo0lZGBs0Kvz-QerBOJfUXP8TXRycG8UxYdLlVsSUAGAQxQpj2ymfBoPLI35-YRCYNh4-s9nP4h9XAJJZcJ6EhlvruPWFkMwlcIZ_LxD6rIto",
+                "data": {
+                    "custom_notification": {
+                        "body": "test body",
+                        "title": "test title",
+                        "color":"#00ACD4",
+                        "priority":"high",
+                        "sound": "default",
+                        "id": "id",
+                        "show_in_foreground": true
+                    }
+                }
+            })
+        }).then((response)=>{
+            console.log('response',response);
+        })
+            .catch((error)=>{
+                console.log('error',error);
+            })
+    }
     // componentDidMount()
     // {
     //    AppState.addEventListener('change',this.handleAppStateChange);
@@ -126,7 +155,7 @@ class Home extends Component<Props> {
     render() {
         console.log('this.state',AppState.currentState);
         return (
-              <TouchableOpacity onPress={()=>Actions.modal()} style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+              <TouchableOpacity onPress={()=>{this.sendNotifications()}} style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                  <Text>React Native</Text>
               </TouchableOpacity>
 
